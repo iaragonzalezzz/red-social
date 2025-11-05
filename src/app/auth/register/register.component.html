@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="card">
+    <h1>Crear cuenta</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="correo" />
+        <mat-error>Correo inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="registerForm.get('password')?.errors?.['passwordWeak']">
+          Mínimo 8 caracteres, una mayúscula y un número.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Repetir contraseña</mat-label>
+        <input matInput type="password" formControlName="repetirPassword" />
+        <mat-error *ngIf="registerForm.errors?.['mismatch']">
+          Las contraseñas no coinciden.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput type="date" formControlName="fechaNacimiento" />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Descripción (opcional)</mat-label>
+        <textarea matInput formControlName="descripcion" rows="3"></textarea>
+      </mat-form-field>
+
+      <input type="file" (change)="onFileChange($event)" accept="image/*" style="margin-bottom: 16px;" />
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="submit-button"
+        [disabled]="registerForm.invalid"
+      >
+        Registrarse
+      </button>
+    </form>
+
+    <a routerLink="/login" class="link">¿Ya tenés cuenta? Iniciá sesión</a>
+  </div>
+</div>
